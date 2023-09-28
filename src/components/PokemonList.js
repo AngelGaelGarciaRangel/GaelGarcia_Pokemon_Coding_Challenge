@@ -1,50 +1,62 @@
-import React, { Component } from 'react';
-import { fetchData } from '../utils/api';
+import React, { useState, useEffect } from 'react';
 import { sortData, filterData } from '../utils/helpers';
 import Filter from './Filter';
 import { List, Card } from 'antd';
 import { Link } from 'react-router-dom';
+import { fetchData } from '../utils/api';
 
-class PokemonList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pokemon: [],
-      filter: '',
-      sort: 'name',
-    };
-  }
+function PokemonList() {
+  const [pokemonData, setPokemonData] = useState(null);
+  const [filter, setFilter] = useState('');
+  const [sort, setSort] = useState('nameAZ');
 
-  componentDidMount() {
+  useEffect(() => {
     fetchData('/pokemon')
       .then(data => {
-        this.setState({ pokemon: data.results })})
-      .catch(error => console.error(error));
+        setPokemonData(data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
+  const [pokemon, setPokemon] = useState([]);
+
+  useEffect(() => {
+    if (!pokemonData) return;
+
+    const pokemonWithId = pokemonData.results.map((poke, index) => ({
+      ...poke,
+      id: index + 1,
+    }));
+    setPokemon(pokemonWithId);
+  }, [pokemonData]);
+
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
   }
 
-  handleFilterChange = (filter) => {
-    this.setState({ filter });
+  const handleSortChange = (newSort) => {
+    setSort(newSort);
   }
 
-  handleSortChange = (sort) => {
-    this.setState({ sort });
-  }
-
- render() {
-  const { pokemon, filter, sort } = this.state;
   const filteredPokemon = filterData(pokemon, filter);
   const sortedPokemon = sortData(filteredPokemon, sort);
 
+  if (!pokemonData) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '20px' }}>
-      <Filter onFilterChange={this.handleFilterChange} onSortChange={this.handleSortChange} />
+      <Filter onFilterChange={handleFilterChange} onSortChange={handleSortChange} />
       <List
         style={{ background: '#f5f5f5', borderRadius: '10px', padding: '20px' }}
         grid={{ gutter: 16, column: 4 }}
         dataSource={sortedPokemon}
         renderItem={poke => (
           <List.Item>
-            <Link to={`/pokemon/id`}>
+            <Link to={`/pokemon/${poke.id}`}>
               <Card
                 hoverable
                 style={{ borderRadius: '10px', transition: 'all 0.3s ease' }}
@@ -59,7 +71,6 @@ class PokemonList extends Component {
       />
     </div>
   );
-}
 }
 
 export default PokemonList;

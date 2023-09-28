@@ -12,12 +12,12 @@ function Filter({ onFilterChange, onSortChange }) {
         style={{ width: '60%' }}
       />
       <Select 
-        defaultValue="name" 
+        defaultValue="nameAZ" 
         onChange={onSortChange}
         style={{ width: '30%' }}
       >
-        <Option value="name">Name (A-Z)</Option>
-        <Option value="-name">Name (Z-A)</Option>
+        <Option value="nameAZ">Name (A-Z)</Option>
+        <Option value="nameZA">Name (Z-A)</Option>
       </Select>
     </div>
   );
