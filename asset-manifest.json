@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/GaelGarcia_Pokemon_Coding_Challenge/static/css/main.87fc9db8.css",
+    "main.js": "/GaelGarcia_Pokemon_Coding_Challenge/static/js/main.406170d3.js",
+    "static/js/787.3e4b36fc.chunk.js": "/GaelGarcia_Pokemon_Coding_Challenge/static/js/787.3e4b36fc.chunk.js",
+    "index.html": "/GaelGarcia_Pokemon_Coding_Challenge/index.html",
+    "main.87fc9db8.css.map": "/GaelGarcia_Pokemon_Coding_Challenge/static/css/main.87fc9db8.css.map",
+    "main.406170d3.js.map": "/GaelGarcia_Pokemon_Coding_Challenge/static/js/main.406170d3.js.map",
+    "787.3e4b36fc.chunk.js.map": "/GaelGarcia_Pokemon_Coding_Challenge/static/js/787.3e4b36fc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.87fc9db8.css",
+    "static/js/main.406170d3.js"
+  ]
+}
